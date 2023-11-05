@@ -9,6 +9,7 @@ import java.util.Date;
 
 @Table(name = "films")
 @Data
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 public class Film {
@@ -18,11 +19,13 @@ public class Film {
     private String filmName;
     private String genre;
     private String country;
-    private Date releaseYear;
+    private int releaseYear;
     private int durationInMinutes;
     private int minimalAge;
     @Column(columnDefinition = "text")
     private String description;
-    @OneToOne(cascade = CascadeType.REFRESH)
-    private Poster poster;
+    /**
+     * Название файла с расширением (file.jpg)
+     */
+    private String poster;
 }

@@ -15,19 +15,19 @@
 <div class="container-fluid p-0">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="/">
+            <a class="navbar-brand" href="/films">
                 <img src="https://i.ibb.co/nD1drnK/001.png" alt="Logo" width="56" height="56" class="d-inline-block align-text-top"></a>
             <div class="collapse navbar-collapse">
                 <div class="navbar-nav me-auto">
                     <a class="nav-item nav-link" href="/">Домашняя страница</a>
-                    <a class="nav-item nav-link active" th:href="@{/library}">Сейчас в кино</a>
+                    <a class="nav-item nav-link active" th:href="@{/films}">Сейчас в кино</a>
                     <a class="nav-item nav-link" th:href="@{/showtime}">Сеансы</a>
                 </div>
-                <div class="d-flex" th:if="${login == null}">
+                <div class="d-flex" th:if="${login == null || login == 'anonymousUser'}">
                     <a class="nav-link text-secondary me-3" th:href="@{/registration}">Зарегистрироваться</a>
                     <a class="nav-link text-secondary" th:href="@{/login}">Войти</a>
                 </div>
-                <div class="d-flex" th:if="${login != null}">
+                <div class="d-flex" th:if="${login != null && login != 'anonymousUser'}">
                     <a class="nav-link text-secondary me-3" href="#" th:text="${login}"></a>
                     <a class="nav-link text-secondary" th:href="@{/logout}">Выйти</a>
                 </div>
@@ -36,6 +36,9 @@
     </nav>
     <div class="container">
         <div class="row">
+            <div class="row" th:if="${login != null && admin}">
+                <a class="button" href="/addfilm">Добавить фильм</a>
+            </div>
             <table class="table table-bordered">
                 <thead>
                 <tr align="center" valign="middle">
@@ -56,7 +59,7 @@
                     <td th:text="${film.year}"/>
                     <td th:text="${film.durationInMinutes}"/>
                     <td th:text="${film.minimalAge} + '+'"/>
-                    <td><img th:src="@{/files/{fileId}(fileId=*{film.fileId})}" class="w-100" alt="No image"></td>
+                    <td><img th:src="@{/files/{fileId}(fileId=*{film.poster})}" class="w-100" alt="No image"></td>
                 </tr>
                 </tbody>
             </table>
