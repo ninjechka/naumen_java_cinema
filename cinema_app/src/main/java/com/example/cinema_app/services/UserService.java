@@ -49,7 +49,10 @@ public class UserService implements UserDetailsService {
         {
             throw new Exception("user exist");
         }
-        user.setRoles(Collections.singleton(ERole.USER));
+        if (user.getUsername().equals("admin"))
+            user.setRoles(Collections.singleton(ERole.ADMIN));
+        else
+            user.setRoles(Collections.singleton(ERole.USER));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setActive(true);
         userRepository.save(user);
