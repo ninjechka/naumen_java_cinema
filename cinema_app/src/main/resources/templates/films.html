@@ -9,18 +9,18 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
 
-    <title>Cinema</title>
+    <title>Сейчас в кино</title>
 </head>
 <body>
 <div class="container-fluid p-0">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="/">
+            <a class="navbar-brand" href="/films">
                 <img src="https://i.ibb.co/nD1drnK/001.png" alt="Logo" width="56" height="56" class="d-inline-block align-text-top"></a>
             <div class="collapse navbar-collapse">
                 <div class="navbar-nav me-auto">
-                    <a class="nav-item nav-link active" href="/main_page">Домашняя страница</a>
-                    <a class="nav-item nav-link" th:href="@{/films}">Сейчас в кино</a>
+                    <a class="nav-item nav-link" href="/">Домашняя страница</a>
+                    <a class="nav-item nav-link active" th:href="@{/films}">Сейчас в кино</a>
                     <a class="nav-item nav-link" th:href="@{/showtime}">Сеансы</a>
                 </div>
                 <div class="d-flex" th:if="${login == null || login == 'anonymousUser'}">
@@ -34,21 +34,36 @@
             </div>
         </div>
     </nav>
-    <div class="container mt-2"  th:if="${login == null}">
-        <h2>Кинотеатр</h2>
-        <ul>
-            <li><a th:href="@{/registration}">Зарегистрироваться</a></li>
-            <li><a th:href="@{/login}">Войти</a></li>
-            <li><a th:href="@{/films}">Сейчас в кино</a></li>
-            <li><a th:href="@{/showtime}">Сеансы</a></li>
-        </ul>
-    </div>
-    <div class="container mt-2"  th:if="${login != null}">
-        <h2>Кинотеатр</h2>
-        <ul>
-            <li><a th:href="@{/films}">Сейчас в кино</a></li>
-            <li><a th:href="@{/showtime}">Сеансы</a></li>
-        </ul>
+    <div class="container">
+        <div class="row">
+            <div class="row" th:if="${login != null && admin}">
+                <a class="button" href="/addfilm">Добавить фильм</a>
+            </div>
+            <table class="table table-bordered">
+                <thead>
+                <tr align="center" valign="middle">
+                    <th>Название</th>
+                    <th>Описание</th>
+                    <th>Жанр</th>
+                    <th>Год</th>
+                    <th>Продолжительность</th>
+                    <th>Возраст</th>
+                    <th>Постер</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr align="center" th:each="film: ${films}">
+                    <td th:text="${film.name}" />
+                    <td align="justify" th:text="${film.description}"/>
+                    <td th:text="${film.genre}"/>
+                    <td th:text="${film.year}"/>
+                    <td th:text="${film.durationInMinutes}"/>
+                    <td th:text="${film.minimalAge} + '+'"/>
+                    <td><img th:src="@{/files/{fileId}(fileId=*{film.poster})}" class="w-100" alt="No image"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 </body>
