@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 @Table(name = "halls")
 @Data
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 public class Hall {

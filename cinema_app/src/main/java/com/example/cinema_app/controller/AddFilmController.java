@@ -1,3 +1,4 @@
+/*
 package com.example.cinema_app.controller;
 
 import com.example.cinema_app.dto.FilmDto;
@@ -45,4 +46,4 @@ public class AddFilmController {
     public void error(String error) {
         System.out.println(error);
     }
-}
+}*/

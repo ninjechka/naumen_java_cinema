@@ -5,10 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Table(name = "sessions")
 @Data
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 public class Session {
@@ -19,7 +20,7 @@ public class Session {
     private Film film;
     @OneToOne
     private Hall hall;
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
+    private LocalTime startTime;
+    private LocalTime endTime;
     private int price;
 }

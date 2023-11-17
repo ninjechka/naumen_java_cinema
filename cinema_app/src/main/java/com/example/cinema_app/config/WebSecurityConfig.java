@@ -19,8 +19,8 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((authz) -> authz
-                        .requestMatchers("/registration", "/login", "/logout", "/main_page", "/films").permitAll()
-                        .requestMatchers("/addfilm").hasRole("ADMIN")
+                        .requestMatchers("/registration", "/login", "/logout", "/main_page", "/films", "/sessions").permitAll()
+                        .requestMatchers("/addfilm", "/addsession").hasRole("ADMIN")
                         .anyRequest()
                         .authenticated())
                 .formLogin(Customizer.withDefaults());
