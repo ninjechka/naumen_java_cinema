@@ -1,10 +1,7 @@
-/*
 package com.example.cinema_app.controller;
 
-import com.example.cinema_app.dto.FilmDto;
 import com.example.cinema_app.models.Film;
 import com.example.cinema_app.services.AddFilmService;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,6 +27,8 @@ public class AddFilmController {
     @PostMapping("/addfilm")
     public String addFilm(Film film, Model model)
     {
+        String login = SecurityContextHolder.getContext().getAuthentication().getName();
+        model.addAttribute("login", login);
         try
         {
             addFilmServicefilmService.addFilm(film);
@@ -37,13 +36,8 @@ public class AddFilmController {
         }
         catch (Exception ex)
         {
-            model.addAttribute("message", "film exists");
+            model.addAttribute("message", ex.getMessage());
             return "addfilm";
         }
     }
-
-    @PostMapping("/error")
-    public void error(String error) {
-        System.out.println(error);
-    }
-}*/
+}

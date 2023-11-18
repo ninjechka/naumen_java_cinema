@@ -9,10 +9,6 @@ import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-/**
- * Реализация сервиса для фильмов {@link FilmDto}.
- * Сервис собирает данные для представления films.html.
- */
 @Service
 public class FilmService {
 
