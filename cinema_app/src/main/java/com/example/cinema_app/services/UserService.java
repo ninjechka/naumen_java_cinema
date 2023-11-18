@@ -46,9 +46,8 @@ public class UserService implements UserDetailsService {
     {
         User userFromDb = userRepository.findByUsername(user.getUsername());
         if (userFromDb != null)
-        {
-            throw new Exception("user exist");
-        }
+            throw new Exception("Пользователь с таким именем уже существует.");
+
         if (user.getUsername().equals("admin"))
             user.setRoles(Collections.singleton(ERole.ADMIN));
         else

@@ -36,14 +36,17 @@
   </nav>
   <div class="container">
     <form class="mt-3" th:action="@{/addfilm}" method="post" enctype="multipart/form-data">
-        <div><label> Название : <input type="text" name="filmName"/> </label></div>
-        <div><label> Жанр : <input type="text" name="genre"/> </label></div>
-        <div><label> Страна : <input type="text" name="country"/> </label></div>
-        <div><label> Год выхода : <input type="number" name="releaseYear"/> </label></div>
-        <div><label> Минимальный возраст: <input type="number" name="durationInMinutes"/> </label></div>
-        <div><label> Продолжительность в минутах: <input type="number" name="minimalAge"/> </label></div>
-        <div><label> Описание: <input type="text" name="description"/> </label></div>
-        <div><label> Постер: <input type="text" name="poster"/> </label></div>
+        <div><ul><li th:text="${message}" /></ul></div>
+        <div><label> Название : <input type="text" name="filmName" minlength="1" required /> </label></div>
+        <div><label> Жанр : <input type="text" name="genre" minlength="3" required /> </label></div>
+        <div><label> Страна : <input type="text" name="country" minlength="1" required/> </label></div>
+        <div><label> Год выхода : <input type="number" name="releaseYear" min="1977" required/> </label></div>
+        <div><label> Минимальный возраст: <input type="number" name="minimalAge" min="0"  max="18" required /> </label></div>
+        <div><label> Продолжительность в минутах: <input type="number" name="durationInMinutes" min="60" max="300" required/> </label></div>
+        <div><label> Описание: <input type="text" name="description" minlength="10" required/> </label></div>
+        <div><label> Постер (в виде имя.jpg): <input type="text" name="poster" minlength="1" pattern=".{1,}\.jpg$"
+                                                     required
+                                                     title="Текст должен содержать минимум 1 символ и оканчиваться на .jpg"/> </label></div>
       <div class="mb-3 row">
         <div class="col-6"></div>
         <div class="col-6">
