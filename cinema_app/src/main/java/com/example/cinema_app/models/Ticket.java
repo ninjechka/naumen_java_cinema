@@ -14,7 +14,7 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long ticketId;
     @OneToOne
-    private Session session;
+    private Showtime showtime;
     private int rowNumber;
     private int placeNumber;
     @OneToOne

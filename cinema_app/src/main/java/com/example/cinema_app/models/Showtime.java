@@ -6,20 +6,21 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalTime;
+import java.util.List;
 
-@Table(name = "sessions")
+@Table(name = "showtime")
 @Data
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class Session {
+public class Showtime {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long sessionId;
-    @OneToOne(cascade = CascadeType.ALL)
-    private Film film;
-    @OneToOne
-    private Hall hall;
+    private Long showtimeId;
+    @ManyToMany(cascade = CascadeType.MERGE)
+    private List<Film> films;
+    @ManyToMany(cascade = CascadeType.MERGE)
+    private List<Hall> halls;
     private LocalTime startTime;
     private LocalTime endTime;
     private int price;

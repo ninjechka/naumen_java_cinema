@@ -15,7 +15,7 @@ public class FilmDto {
     private String poster;
     private String genre;
 
-    public FilmDto(String name, String description, int year, int minimalAge, int durationInMinutes, String poster, String genre) {
+    public FilmDto(String name, String description, int year, int durationInMinutes, int minimalAge, String poster, String genre) {
         this.name = name;
         this.description = description;
         this.year = year;

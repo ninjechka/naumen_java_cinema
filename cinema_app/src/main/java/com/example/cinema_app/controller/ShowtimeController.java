@@ -1,6 +1,6 @@
 package com.example.cinema_app.controller;
 
-import com.example.cinema_app.services.SessionService;
+import com.example.cinema_app.services.ShowtimeService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @Controller
-@RequestMapping("/sessions")
-public class SessionController {
+@RequestMapping("/showtime")
+public class ShowtimeController {
 
-    private final SessionService sessionService;
+    private final ShowtimeService showtimeService;
 
-    public SessionController(SessionService sessionService) {
-        this.sessionService = sessionService;
+    public ShowtimeController(ShowtimeService showtimeService) {
+        this.showtimeService = showtimeService;
     }
 
     @GetMapping
@@ -28,7 +28,7 @@ public class SessionController {
             admin = true;
         }
         model.addAttribute("admin", admin);
-        model.addAttribute("sessions", sessionService.findAll());
-        return "/sessions";
+        model.addAttribute("showtime", showtimeService.findAll());
+        return "/showtime";
     }
 }

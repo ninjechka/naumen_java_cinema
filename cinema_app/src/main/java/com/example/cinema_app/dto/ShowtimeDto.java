@@ -2,17 +2,17 @@ package com.example.cinema_app.dto;
 
 import java.time.LocalTime;
 
-public class SessionDto {
+public class ShowtimeDto {
 
-    private Long id;
+    private Long showtimeId;
     private String film;
     private String hall;
     private LocalTime startTime;
     private LocalTime endTime;
     private int price;
 
-    public SessionDto(Long id, String film, String hall, LocalTime startTime, LocalTime endTime, int price) {
-        this.id = id;
+    public ShowtimeDto(Long showtimeId, String film, String hall, LocalTime startTime, LocalTime endTime, int price) {
+        this.showtimeId = showtimeId;
         this.film = film;
         this.hall = hall;
         this.startTime = startTime;
@@ -21,11 +21,11 @@ public class SessionDto {
     }
 
     public Long getId() {
-        return id;
+        return showtimeId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(Long showtimeId) {
+        this.showtimeId = showtimeId;
     }
 
     public String getFilm() {

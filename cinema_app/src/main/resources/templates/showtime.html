@@ -21,7 +21,7 @@
                 <div class="navbar-nav me-auto">
                     <a class="nav-item nav-link" href="/">Домашняя страница</a>
                     <a class="nav-item nav-link" th:href="@{/films}">Сейчас в кино</a>
-                    <a class="nav-item nav-link active" th:href="@{/sessions}">Сеансы</a>
+                    <a class="nav-item nav-link active" th:href="@{/showtime}">Сеансы</a>
                 </div>
                 <div class="d-flex" th:if="${login == null || login == 'anonymousUser'}">
                     <a class="nav-link text-secondary me-3" th:href="@{/registration}">Зарегистрироваться</a>
@@ -37,7 +37,7 @@
     <div class="container">
         <div class="row">
             <div class="row" th:if="${login != null && admin}">
-                <a class="button" href="/addsession">Добавить сеанс</a>
+                <a class="button" href="/addshowtime">Добавить сеанс</a>
             </div>
             <table class="table table-hover">
                 <thead>
@@ -51,13 +51,13 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="session: ${sessions}">
-                    <td th:text="${session.film}"/>
-                    <td th:text="${session.hall}"/>
-                    <td th:text="${session.startTime}"/>
-                    <td th:text="${session.endTime}"/>
-                    <td th:text="${session.price}"/>
-                    <td><a th:href="@{/cashdesk/{id}(id=${session.sessionId})}">Забронировать билет</a></td>
+                <tr th:each="show: ${showtime}">
+                    <td th:text="${show.film}"/>
+                    <td th:text="${show.hall}"/>
+                    <td th:text="${show.startTime}"/>
+                    <td th:text="${show.endTime}"/>
+                    <td th:text="${show.price}"/>
+                    <!--<td><a th:href="@{/cashdesk/{showId}(showId=*{show.id})}">Забронировать билет</a>--></td>
                 </tr>
                 </tbody>
             </table>
