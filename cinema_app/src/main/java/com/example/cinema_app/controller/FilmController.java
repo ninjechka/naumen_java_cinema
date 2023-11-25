@@ -51,6 +51,7 @@ public class FilmController {
     public String addFilm(Model model) {
         String login = SecurityContextHolder.getContext().getAuthentication().getName();
         model.addAttribute("login", login);
+        model.addAttribute("genres", filmService.getGenreCollection());
         return "/addfilm";
     }
 

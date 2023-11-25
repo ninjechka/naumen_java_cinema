@@ -6,6 +6,7 @@ import com.example.cinema_app.repository.FilmRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -50,5 +51,13 @@ public class FilmService {
         if (filmFromDb != null)
             throw new Exception("Фильм с таким именем уже добавлен в афишу.");
         filmRepository.save(film);
+    }
+    private static final  String[] genres = {"Комедия", "Драма", "Триллер",
+            "Мультфильм", "Детектив", "Боевик",
+            "Вестерн", "Мелодрама", "Ужасы",
+            "Фэнтези", "Мюзикл", "Биографический"};
+
+    public Collection<String> getGenreCollection() {
+        return List.of(genres);
     }
 }
