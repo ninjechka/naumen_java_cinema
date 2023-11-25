@@ -9,13 +9,13 @@
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
 
-  <title>Добавить фильм</title>
+  <title>Бронирование билетов</title>
 </head>
 <body>
 <div class="container-fluid p-0">
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-      <a class="navbar-brand" href="/addshowtime">
+      <a class="navbar-brand" href="/buy">
         <img src="files/logo.png" alt="Logo" width="56" height="56" class="d-inline-block align-text-top"></a>
       <div class="collapse navbar-collapse">
         <div class="navbar-nav me-auto">
@@ -35,12 +35,42 @@
     </div>
   </nav>
   <div class="container">
-    <form class="mt-3" th:action="@{/addshowtime}" method="post" enctype="multipart/form-data">
-      <div><ul><li th:text="${message}" /></ul></div>
-      <div><label> Название фильма: <input type="text" name="film" minlength="1" required /> </label></div>
-      <div><label> Зал: <input type="text" name="hall" minlength="1" required /> </label></div>
-      <div><label> Время начала: <input type="text" name="startTime" minlength="5" required /> </label></div>
-      <div><label> Цена: <input type="number" name="price" min="0" required /> </label></div>
+    <form class="mt-3" th:action="@{/buy}" method="post" enctype="multipart/form-data">
+      <input type="hidden" name="showId" th:value="${show.id}">
+      <input type="hidden" name="ticketId" th:value="1">
+      <style>
+            p {
+                text-align:center;
+                font-size: 100%;
+                color: black;
+                text-indent: 30px;
+                }
+            i {
+                font-size: 100%;
+                color: SeaGreen;
+            }
+            </style>
+
+      <p>Вы бронирутете билет:
+      <p>Фильм <i th:text="${show.film}"></i>;<p>
+      <p> Зал: <i th:text="${show.hall}"></i>;<p>
+      <p>Время начала: <i th:text="${{show.startTime}}"></i>;<p>
+      <p>Время окончания: <i th:text="${{show.endTime}}"></i>;
+      <p>цена: <i th:text="${show.price}"></i> RUB.<p>
+      <p></p>
+
+      <div><ul><li th:text="${message}"/></ul></div>
+      <div class="mb-3">
+        <label for="row"><b>Ряд</b></label>
+        <select class="form-control" id="row" name="rowNumber">
+          <option th:each="row : ${rows}" th:text="${row}"></option>
+        </select>
+        <label for="place"><b>Место</b></label>
+        <select class="form-control" id="place" name="placeNumber">
+          <option th:each="place : ${places}" th:text="${place}"></option>
+        </select>
+      </div>
+
       <div class="mb-3 row">
         <div class="col-6"></div>
         <div class="col-6">

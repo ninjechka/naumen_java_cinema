@@ -9,9 +9,11 @@ import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * Сервис для работы с фильами
+ */
 @Service
 public class FilmService {
-
     private final FilmRepository filmRepository;
 
     @Autowired
@@ -35,5 +37,18 @@ public class FilmService {
     public Collection<FilmDto> findAll() {
         return filmRepository.findAll().stream()
                 .map(this::transformFilmToFilmDto).collect(Collectors.toList());
+    }
+
+    /**
+     * Добавить фильм в бд
+     * @param film - фильм
+     * @throws Exception
+     */
+    public void addFilm(Film film) throws Exception {
+        Film filmFromDb = filmRepository.findByFilmName(film.getFilmName());
+
+        if (filmFromDb != null)
+            throw new Exception("Фильм с таким именем уже добавлен в афишу.");
+        filmRepository.save(film);
     }
 }
