@@ -37,4 +37,9 @@ public class HallService {
         }
         return Optional.of(transformToHallDto(hallOptional.get()));
     }
+
+    public HallDto findByName(String name) {
+        var hall = hallRepository.findByHallName(name);
+        return transformToHallDto(hall);
+    }
 }

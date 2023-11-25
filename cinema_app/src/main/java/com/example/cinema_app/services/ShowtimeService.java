@@ -21,6 +21,7 @@ public class ShowtimeService {
     private final FilmRepository filmRepository;
     private final HallRepository hallRepository;
 
+
     @Autowired
     public ShowtimeService(ShowtimeRepository showtimeRepository,
                            FilmRepository filmRepository, HallRepository hallRepository) {
@@ -53,5 +54,13 @@ public class ShowtimeService {
     public Collection<ShowtimeDto> findAll() {
         return showtimeRepository.findAll().stream()
                 .map(this::transformShowtimeToShowtimeDto).collect(Collectors.toList());
+    }
+
+    public ShowtimeDto findByIdDto(int id) {
+        return transformShowtimeToShowtimeDto(showtimeRepository.findById((long)id).get());
+    }
+
+    public Showtime findById(int id) {
+        return showtimeRepository.findById((long)id).get();
     }
 }

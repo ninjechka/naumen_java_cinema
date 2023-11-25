@@ -1,6 +1,5 @@
 package com.example.cinema_app.services;
 
-
 import com.example.cinema_app.models.ERole;
 import com.example.cinema_app.models.User;
 import com.example.cinema_app.repository.UserRepository;
@@ -18,6 +17,9 @@ import java.util.Collections;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * Сервис для работы с пользователями
+ */
 @Service
 public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
@@ -55,5 +57,9 @@ public class UserService implements UserDetailsService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setActive(true);
         userRepository.save(user);
+    }
+
+    public User findByUsername(String name) {
+        return userRepository.findByUsername(name);
     }
 }

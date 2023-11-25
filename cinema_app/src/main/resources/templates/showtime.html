@@ -16,7 +16,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
             <a class="navbar-brand" href="/">
-                <img src="https://i.ibb.co/nD1drnK/001.png" alt="Logo" width="56" height="56" class="d-inline-block align-text-top"></a>
+                <img src="files/logo.png" alt="Logo" width="56" height="56" class="d-inline-block align-text-top"></a>
             <div class="collapse navbar-collapse">
                 <div class="navbar-nav me-auto">
                     <a class="nav-item nav-link" href="/">Домашняя страница</a>
@@ -57,7 +57,7 @@
                     <td th:text="${show.startTime}"/>
                     <td th:text="${show.endTime}"/>
                     <td th:text="${show.price}"/>
-                    <!--<td><a th:href="@{/cashdesk/{showId}(showId=*{show.id})}">Забронировать билет</a>--></td>
+                    <td><a th:href="@{/cashdesk/{showId}(showId=*{show.id})}">Забронировать билет</a></td>
                 </tr>
                 </tbody>
             </table>

@@ -7,9 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface HallRepository extends CrudRepository<Hall, Long> {
-
     Optional<Hall> findByHallId(Long id);
     List<Hall> findAll();
-
     Hall findByHallName(String hallName);
 }
