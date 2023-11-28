@@ -54,8 +54,8 @@
                 <tr th:each="show: ${showtime}">
                     <td th:text="${show.film}"/>
                     <td th:text="${show.hall}"/>
-                    <td th:text="${show.startTime}"/>
-                    <td th:text="${show.endTime}"/>
+                    <td th:text="${{show.startTime}}"/>
+                    <td th:text="${{show.endTime}}"/>
                     <td th:text="${show.price}"/>
                     <td><a th:href="@{/cashdesk/{showId}(showId=*{show.id})}">Забронировать билет</a></td>
                 </tr>

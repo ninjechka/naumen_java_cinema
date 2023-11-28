@@ -10,10 +10,14 @@ import com.example.cinema_app.repository.ShowtimeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Сервис для работы с сеансами
+ */
 @Service
 public class ShowtimeService {
 
@@ -30,6 +34,10 @@ public class ShowtimeService {
         this.hallRepository = hallRepository;
     }
 
+    /**
+     * @param showtime сеанс
+     * @return название фильма данного сеанса
+     */
     String getFilm(Showtime showtime) {
         List<Film> films = showtime.getFilms();
         if (!films.isEmpty())
@@ -38,6 +46,10 @@ public class ShowtimeService {
             return "Нет фильма с таким id";
     }
 
+    /**
+     * @param showtime сеанс
+     * @return название зала, в котором данный сеанс проходит
+     */
     String getHall(Showtime showtime) {
         List<Hall> halls = showtime.getHalls();
         if (!halls.isEmpty())
@@ -49,6 +61,49 @@ public class ShowtimeService {
     private ShowtimeDto transformShowtimeToShowtimeDto(Showtime showtime) {
         return new ShowtimeDto(showtime.getShowtimeId(), getFilm(showtime),
                 getHall(showtime), showtime.getStartTime(), showtime.getEndTime(), showtime.getPrice());
+    }
+
+    /**
+     * Добавить сеанс в бд
+     * @param showtimeDto - dto сеанса
+     * @throws Exception
+     */
+    public void addShowtime(ShowtimeDto showtimeDto) throws Exception {
+        Film film = filmRepository.findByFilmName(showtimeDto.getFilm());
+        if (film == null) {
+            throw new Exception("Фильм с таким названием не найден");
+        }
+
+        Hall hall = hallRepository.findByHallName(showtimeDto.getHall());
+        if (hall == null) {
+            throw new Exception("Зал с таким названием не найден");
+        }
+
+        List<Showtime> showtimeList = showtimeRepository.
+                findShowtimeByHallIdAndTimeRange(hall.getHallId(),
+                        showtimeDto.getStartTime(), showtimeDto.getStartTime().plusMinutes(film.getDurationInMinutes()));
+
+        if (!showtimeList.isEmpty() && showtimeList.get(0) != null)
+        {
+            throw new Exception("Данный зал занят на это время другим сеансом");
+        }
+
+        Showtime showtime = new Showtime();
+        showtime.setShowtimeId(showtimeDto.getId());
+        showtime.setFilms(new ArrayList<>());
+        showtime.setHalls(new ArrayList<>());
+        showtime.getFilms().add(film);
+        showtime.getHalls().add(hall);
+        showtime.setStartTime(showtimeDto.getStartTime());
+        showtime.setEndTime(showtime.getStartTime().plusMinutes(film.getDurationInMinutes()));
+        showtime.setPrice(showtimeDto.getPrice());
+        showtimeRepository.save(showtime);
+    }
+
+    private static final String[] halls = {"Зал №1", "Зал №2", "Зал №3", "DOLBY ATMOS", "VEGA", "SIRIUS"};
+
+    public Collection<String> getHallCollection() {
+        return List.of(halls);
     }
 
     public Collection<ShowtimeDto> findAll() {

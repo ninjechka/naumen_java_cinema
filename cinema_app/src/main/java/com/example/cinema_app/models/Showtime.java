@@ -5,9 +5,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
+/**
+ * Модель данных для Сеансов
+ */
 @Table(name = "showtime")
 @Data
 @Entity
@@ -21,7 +25,7 @@ public class Showtime {
     private List<Film> films;
     @ManyToMany(cascade = CascadeType.MERGE)
     private List<Hall> halls;
-    private LocalTime startTime;
-    private LocalTime endTime;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
     private int price;
 }

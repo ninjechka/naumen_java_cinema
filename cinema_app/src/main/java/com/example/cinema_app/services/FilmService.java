@@ -11,7 +11,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
- * Сервис для работы с фильами
+ * Сервис для работы с фильмами
  */
 @Service
 public class FilmService {

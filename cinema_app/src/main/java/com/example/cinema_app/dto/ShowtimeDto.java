@@ -1,17 +1,20 @@
 package com.example.cinema_app.dto;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
+/**
+ * DTO объект для сущности сеансов
+ */
 public class ShowtimeDto {
 
     private Long showtimeId;
     private String film;
     private String hall;
-    private LocalTime startTime;
-    private LocalTime endTime;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
     private int price;
 
-    public ShowtimeDto(Long showtimeId, String film, String hall, LocalTime startTime, LocalTime endTime, int price) {
+    public ShowtimeDto(Long showtimeId, String film, String hall, LocalDateTime startTime, LocalDateTime endTime, int price) {
         this.showtimeId = showtimeId;
         this.film = film;
         this.hall = hall;
@@ -44,19 +47,19 @@ public class ShowtimeDto {
         this.hall = hallName;
     }
 
-    public LocalTime getStartTime() {
+    public LocalDateTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(LocalTime startTime) {
+    public void setStartTime(LocalDateTime startTime) {
         this.startTime = startTime;
     }
 
-    public LocalTime getEndTime() {
+    public LocalDateTime getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(LocalTime endTime) {
+    public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
     }
 

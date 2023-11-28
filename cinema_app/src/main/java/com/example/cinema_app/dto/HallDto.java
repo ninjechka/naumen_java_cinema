@@ -2,7 +2,9 @@ package com.example.cinema_app.dto;
 
 import java.util.Collection;
 
-
+/**
+ * DTO объект для сущности залов
+ */
 public class HallDto {
 
     private Long id;

@@ -6,6 +6,9 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Репозиторий для залов
+ */
 public interface HallRepository extends CrudRepository<Hall, Long> {
     Optional<Hall> findByHallId(Long id);
     List<Hall> findAll();

@@ -9,6 +9,9 @@ import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
+/**
+ * Сервис для работы с залами
+ */
 @Service
 public class HallService {
 
