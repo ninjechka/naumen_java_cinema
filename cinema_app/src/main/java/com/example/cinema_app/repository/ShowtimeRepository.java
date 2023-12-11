@@ -16,6 +16,14 @@ public interface ShowtimeRepository extends CrudRepository<Showtime, Long> {
     Optional<Showtime> findByShowtimeId(Long id);
     List<Showtime> findAll();
 
+    /**
+     * поиск всех актуальных сеансов
+     * @return лист сеансов, у которых дата и время окончания больше текущей даты и времени
+     */
+    @Query("SELECT s FROM Showtime s " +
+            "WHERE s.endTime > CURRENT_TIMESTAMP")
+    List<Showtime> findAllActualShowtime();
+
 
     /**
      * поиск сеанса по hallId и временному промежутку

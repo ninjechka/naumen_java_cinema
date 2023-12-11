@@ -8,8 +8,10 @@ import com.example.cinema_app.repository.FilmRepository;
 import com.example.cinema_app.repository.HallRepository;
 import com.example.cinema_app.repository.ShowtimeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -79,6 +81,10 @@ public class ShowtimeService {
             throw new Exception("Зал с таким названием не найден");
         }
 
+        if (showtimeDto.getStartTime().isBefore(LocalDateTime.now().minusMinutes(1))) {
+            throw new Exception("Сеанс не может начинаться раньше текущего времени");
+        }
+
         List<Showtime> showtimeList = showtimeRepository.
                 findShowtimeByHallIdAndTimeRange(hall.getHallId(),
                         showtimeDto.getStartTime(), showtimeDto.getStartTime().plusMinutes(film.getDurationInMinutes()));
@@ -95,19 +101,26 @@ public class ShowtimeService {
         showtime.getFilms().add(film);
         showtime.getHalls().add(hall);
         showtime.setStartTime(showtimeDto.getStartTime());
-        showtime.setEndTime(showtime.getStartTime().plusMinutes(film.getDurationInMinutes()));
+        /**
+         * вычисляем время окончания сеанса, прибавляя длительность фильма к времени начала сеанса
+         * и 15 минут на подготовку зала и рекламу
+         */
+        showtime.setEndTime(showtime.getStartTime().plusMinutes(film.getDurationInMinutes() + 15));
         showtime.setPrice(showtimeDto.getPrice());
         showtimeRepository.save(showtime);
     }
 
-    private static final String[] halls = {"Зал №1", "Зал №2", "Зал №3", "DOLBY ATMOS", "VEGA", "SIRIUS"};
-
     public Collection<String> getHallCollection() {
-        return List.of(halls);
+        List<Hall> halls = hallRepository.findAll();
+        List<String> stringList = new ArrayList<>();
+        for (Hall hall: halls) {
+            stringList.add(hall.getHallName());
+        }
+        return stringList;
     }
 
     public Collection<ShowtimeDto> findAll() {
-        return showtimeRepository.findAll().stream()
+        return showtimeRepository.findAllActualShowtime().stream()
                 .map(this::transformShowtimeToShowtimeDto).collect(Collectors.toList());
     }
 
