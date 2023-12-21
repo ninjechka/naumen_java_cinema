@@ -1,6 +1,7 @@
 package com.example.cinema_app.repository;
 
 import com.example.cinema_app.models.Showtime;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -12,7 +13,7 @@ import java.util.Optional;
 /**
  * Репозиторий для сеансов
  */
-public interface ShowtimeRepository extends CrudRepository<Showtime, Long> {
+public interface ShowtimeRepository extends JpaRepository<Showtime, Long> {
     Optional<Showtime> findByShowtimeId(Long id);
     List<Showtime> findAll();
 
